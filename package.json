@@ -1,0 +1,13 @@
+{
+  "name": "01-node-fundamentals-challenge",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Node Challenge from RocketSeat ignite Bootcamp",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [],
+  "author": "Ramon Fossa Chiesi",
+  "license": "MIT"
+}
