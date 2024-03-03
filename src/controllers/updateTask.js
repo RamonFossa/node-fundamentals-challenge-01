@@ -13,7 +13,7 @@ export function updateTask(req, res) {
 
     if (error) return res.writeHead(404).end(message);
 
-    if(message.completed_at !== null) return res.writeHead(403).end('Can`t update a completed task!')
+    if(message.completed_at !== null) return res.writeHead(403).end('Can`t update a completed task!');
 
     const updated_at = Date.now();
 

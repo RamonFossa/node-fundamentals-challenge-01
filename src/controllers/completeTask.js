@@ -3,13 +3,17 @@ import { database } from '../database.js';
 export function completeTask(req, res) {
     const { id } = req.params;
 
-    const completed_at = Date.now();
-
-    const databaseRes = database.update('tasks', id, { completed_at });
+    const databaseRes = database.select('tasks', id);
 
     const { error, message } = databaseRes;
+    
+    if(error) return res.writeHead(404).end(message);
 
-    const resMessage = error ? message : 'Task completed successfully!'
+    if(message.completed_at !== null) return res.writeHead(403).end('Can`t complete a completed task!')
 
-    return res.writeHead(error ? 404 : 200).end(resMessage);
+    const completed_at = Date.now();
+
+    database.update('tasks', id, { completed_at });
+
+    return res.writeHead(200).end('Task completed successfully!');
 }
