@@ -1,5 +1,6 @@
 import { buildRoutePath } from './utils/build-route-path.js';
 import { getTasks } from './controllers/getTasks.js';
+import { getTask } from './controllers/getTask.js';
 import { createTask } from './controllers/createTask.js';
 import { updateTask } from './controllers/updateTask.js';
 import { deleteTask } from './controllers/deleteTask.js';
@@ -10,6 +11,11 @@ export const routes = [
         method: 'GET',
         path: buildRoutePath('/tasks'),
         handler: getTasks
+    }, 
+    {
+        method: 'GET',
+        path: buildRoutePath('/tasks/:id'),
+        handler: getTask
     },
     {
         method: 'POST',

@@ -24,8 +24,15 @@ class Database {
         }
     }
 
-    select(table) {
-        return this.#database[table] ?? [];
+    select(table, id) {
+        const data = this.#database[table] ?? [];
+        if (!id) return data;
+
+        const selectedData = data.find(data => data.id == id);
+
+        if(selectedData) return this.#response(selectedData, false);
+
+        return this.#response('Id Not found!', true);
     }
 
     insert(table, data) {
@@ -49,7 +56,7 @@ class Database {
     }
 
     update(table, id, body) {
-        const index = this.select(table).findIndex(data => String(data.id) === String(id));
+        const index = this.select(table).findIndex(data => data.id == id);
         
         if (index > -1) {
             for (const key in body) this.#database[table][index][key] = body[key];
