@@ -59,6 +59,17 @@ class Database {
 
         return this.#response('Id Not found!', true);
     }
+
+    delete(table, id) {
+        const index = this.select(table).findIndex(data => String(data.id) === String(id));
+        
+        if (index > -1) {
+            this.#database[table].splice(index, 1);
+            this.#persist();
+            return this.#response('Successfully deleted!', false);
+        }
+        return this.#response('Id Not found!', true);
+    }
 }
 
 export const database = new Database();
