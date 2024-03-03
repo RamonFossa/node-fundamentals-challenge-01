@@ -20,6 +20,26 @@ class Database {
     select(table) {
         return this.#database[table] ?? [];
     }
+
+    insert(table, data) {
+        let databaseData = this.#database[table];
+        
+        if (Array.isArray(databaseData)) {
+            const lastId = this.#database['ids'][table];
+            data.id = lastId + 1;
+            databaseData.push(data);
+        } else {
+            data.id = 1;
+            this.#database['ids'] = {};
+            databaseData = [data];
+        }
+
+        this.#database[table] = databaseData;
+        this.#database['ids'][table] = data.id;
+        this.#persist();
+
+        return databaseData;
+    }
 }
 
 export const database = new Database();
