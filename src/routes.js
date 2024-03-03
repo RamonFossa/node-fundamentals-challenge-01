@@ -1,6 +1,7 @@
 import { buildRoutePath } from './utils/build-route-path.js';
 import { getTasks } from './controllers/getTasks.js';
 import { createTask } from './controllers/createTask.js';
+import { updateTask } from './controllers/updateTask.js';
 
 export const routes = [
     {
@@ -12,5 +13,10 @@ export const routes = [
         method: 'POST',
         path: buildRoutePath('/tasks'),
         handler: createTask
+    },
+    {
+        method: 'PUT',
+        path: buildRoutePath('/tasks/:id'),
+        handler: updateTask
     },
 ]

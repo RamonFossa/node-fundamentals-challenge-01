@@ -17,6 +17,13 @@ class Database {
         fs.writeFile(databasePath, JSON.stringify(this.#database));
     }
 
+    #response(message, error) {
+        return {
+            message,
+            error,
+        }
+    }
+
     select(table) {
         return this.#database[table] ?? [];
     }
@@ -39,6 +46,18 @@ class Database {
         this.#persist();
 
         return databaseData;
+    }
+
+    update(table, id, body) {
+        const index = this.select(table).findIndex(data => String(data.id) === String(id));
+        
+        if (index > -1) {
+            for (const key in body) this.#database[table][index][key] = body[key];
+            this.#persist();
+            return this.#response('Successfully updated!', false);
+        }
+
+        return this.#response('Id Not found!', true);
     }
 }
 
